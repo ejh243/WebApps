@@ -8,11 +8,23 @@ shinyUI(fluidPage(
   # Sidebar 
   sidebarLayout(
     sidebarPanel(
+	tags$h3("Single CpG"),
 	 textInput("probeID", h4("Enter CpG identifier"), value = "cg00000029"),
-	 submitButton(text = "Plot CpG", icon = NULL, width = NULL)
+	 submitButton(text = "Plot CpG", icon = NULL, width = NULL),
+	tags$hr(),
+	
+	tags$h3("Multiple CpGs"),
+	helpText("To get the heritability estimates for multiple CpGs upload a text file with the CpG identifiers in and select the Multiple CpG tab"),
+	 fileInput("batchQuery", h4("Choose file with CpG identifiers"), accept = c(
+          "text/plain")),
+		
+		checkboxInput("header", "Header", TRUE),
+		downloadButton('downloadData', 'Download Table')
 		),
     # Show a plot of the generated distribution
     mainPanel(
+	tabsetPanel(id = "inTabset", 
+	tabPanel("Single CpG", value = "single",
 	fluidPage(
 	  fluidRow(
 	  column(12, h4(textOutput("title")), align = "center")
@@ -28,7 +40,10 @@ shinyUI(fluidPage(
           column(12, h4(textOutput("aceValues")), align = "center")
 	  )
 	)
-    )    
+    ),
+	tabPanel("Multiple CpGs", value = "multiple",	tableOutput("batchTable"))
+	)
+	)    
   )
  )
 )

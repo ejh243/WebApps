@@ -3,7 +3,7 @@ load("data/data.rda")
 
 shinyServer(
   
-function(input, output) {
+function(input, output, session) {
 	
 	output$title <- renderText({ 
 		if(input$probeID %in% rownames(betas)){
@@ -43,4 +43,25 @@ function(input, output) {
 			signif(herit[input$probeID,2], 3), "%, E = ", signif(herit[input$probeID,3],3), "%", sep = "")
 		}
 	})
+	dataIn<-reactive({
+		inFile <- input$batchQuery
+		if (is.null(inFile))
+		  return(NULL)
+		read.table(inFile$datapath, header = input$header, row.names = NULL)[,1]
+	})
+	observeEvent(input$batchQuery, {
+    updateTabsetPanel(session, "inTabset",
+      selected = "multiple")
+  })
+	output$batchTable <- renderTable({
+		herit[intersect(rownames(herit), dataIn()),]		
+  }, include.rownames = TRUE)
+  
+  output$downloadData <- downloadHandler(	
+		filename = function() { paste('H2_', input$batchQuery, sep='') },
+		content = function(file) {
+		write.table(herit[intersect(rownames(herit), dataIn()),], file)
+    }
+  )
+	
 })
