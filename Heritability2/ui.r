@@ -14,7 +14,7 @@ shinyUI(fluidPage(
 	tags$hr(),
 	
 	tags$h3("Multiple CpGs"),
-	helpText("To get the heritability estimates for multiple CpGs upload a text file with the CpG identifiers in and select the Multiple CpG tab"),
+	helpText("To get the heritability estimates for multiple CpGs upload a text file with a single column of CpG identifiers"),
 	 fileInput("batchQuery", h4("Choose file with CpG identifiers"), accept = c(
           "text/plain")),
 		
