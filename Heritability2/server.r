@@ -39,7 +39,8 @@ function(input, output) {
 	})
 	output$aceValues <-renderText({
 		if(input$probeID %in% rownames(betas)){				
-			paste("A = ", signif(herit[input$probeID,1],3))
+			paste("Heritability Estimates for ", input$probeID, "\n A = ", signif(herit[input$probeID,1],3), "%, C = ",
+			signif(herit[input$probeID,2], 3), "%, E = ", signif(herit[input$probeID,3],3), "%", sep = "")
 		}
 	})
 })

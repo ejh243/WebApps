@@ -25,7 +25,7 @@ shinyUI(fluidPage(
 	  column(12, plotOutput("acePlot", height = "180px"))
 	  ),
 	  fluidRow(
-          column(12, textOutput("aceValues"), align = "center")
+          column(12, h4(textOutput("aceValues")), align = "center")
 	  )
 	)
     )    
