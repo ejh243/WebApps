@@ -1,5 +1,4 @@
 library(shiny)
-library(DT)
 load("data/data.rda")
 
 shinyServer(
@@ -38,9 +37,9 @@ function(input, output) {
 			axis(1, cex.axis = 1.3, cex.lab = 1.3)
 		}
 	})
-	output$aceValues <- DT::renderDataTable({
+	output$aceValues <-renderText({
 		if(input$probeID %in% rownames(betas)){				
-			t(herit[input$probeID,])
+			paste("A = ", signif(herit[input$probeID,1],3))
 		}
 	})
 })

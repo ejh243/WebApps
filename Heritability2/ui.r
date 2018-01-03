@@ -4,7 +4,7 @@ library(shiny)
 shinyUI(fluidPage(
   # Application title
   titlePanel(h2("Heritability of DNA methylation", align = "center")),
-  headerPanel("Heritability of DNAm"),
+
   # Sidebar 
   sidebarLayout(
     sidebarPanel(
@@ -25,7 +25,7 @@ shinyUI(fluidPage(
 	  column(12, plotOutput("acePlot", height = "180px"))
 	  ),
 	  fluidRow(
-          column(12, dataTableOutput("aceValues"))
+          column(12, textOutput("aceValues"), align = "center")
 	  )
 	)
     )    
