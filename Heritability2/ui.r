@@ -25,7 +25,7 @@ shinyUI(fluidPage(
 	  column(12, plotOutput("acePlot", height = "180px"))
 	  ),
 	  fluidRow(
-          column(12, dataTableOutput("aceValues", height = 180px"))
+          column(12, dataTableOutput("aceValues"))
 	  )
 	)
     )    
