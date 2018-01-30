@@ -1,10 +1,12 @@
 library(shiny)
-load("data/data.rda")
+load("data/herit.rda")
 
 shinyServer(
   
-function(input, output) {
+function(input, output, session) {
 	
+	observeEvent(input$plot, {
+	load("data/data.rda")
 	output$title <- renderText({ 
 		if(input$probeID %in% rownames(betas)){
 			paste(input$probeID)
@@ -37,4 +39,31 @@ function(input, output) {
 			axis(1, cex.axis = 1.3, cex.lab = 1.3)
 		}
 	})
+	output$aceValues <-renderText({
+		if(input$probeID %in% rownames(betas)){				
+			paste("Heritability Estimates for ", input$probeID, "\n A = ", signif(herit[input$probeID,1],3), "%, C = ",
+			signif(herit[input$probeID,2], 3), "%, E = ", signif(herit[input$probeID,3],3), "%", sep = "")
+		}
+	})
+	})
+	dataIn<-reactive({
+		inFile <- input$batchQuery
+		if (is.null(inFile))
+		  return(NULL)
+		read.table(inFile$datapath, header = input$header, row.names = NULL)[,1]
+	})
+	observeEvent(input$batchQuery, {
+		updateTabsetPanel(session, "inTabset", selected = "multiple")
+	})
+	output$batchTable <- renderTable({
+		herit[intersect(rownames(herit), dataIn()),]		
+  }, include.rownames = TRUE)
+  
+  output$downloadData <- downloadHandler(	
+		filename = function() { paste('H2_', input$batchQuery, sep='') },
+		content = function(file) {
+		write.table(herit[intersect(rownames(herit), dataIn()),], file)
+    }
+  )
+	
 })
