@@ -11,14 +11,16 @@ shinyUI(fluidPage(
 	tags$h3("Single CpG"),
 	 textInput("probeID", h4("Enter CpG identifier"), value = "cg00000029"),
 	 actionButton("plot", "Plot CpG"),
+	 downloadButton('downloadPlot', 'Download Plot'),
 	tags$hr(),
 	
 	tags$h3("Multiple CpGs"),
-	helpText("To get the heritability estimates for multiple CpGs upload a text file with the CpG identifiers in and select the Multiple CpG tab"),
+	helpText("To get the heritability estimates for multiple CpGs upload a text file with the CpG identifiers in the first column."),
 	 fileInput("batchQuery", h4("Choose file with CpG identifiers"), accept = c(
           "text/plain")),
 		
 		checkboxInput("header", "Header", TRUE),
+		actionButton("upload", "Upload File"),
 		downloadButton('downloadData', 'Download Table')
 		),
     # Show a plot of the generated distribution

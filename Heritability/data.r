@@ -1,0 +1,5 @@
+load("data/DZ1.rda")
+load("data/DZ2.rda")
+load("data/MZ1.rda")
+load("data/MZ2.rda")
+load("data/herit.rda")
