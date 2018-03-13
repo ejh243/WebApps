@@ -65,7 +65,7 @@ function(input, output, session) {
 			barplot(t(as.matrix(herit[input$probeID,])), horiz = TRUE, col = rainbow(3), legend.text = c("A", "C", "E"), main = "% variance explained", ylab = "", cex.axis = 1.1, cex.lab = 1.1, ylim = c(0,4), axes = FALSE, args.legend = list(horiz = TRUE, box.col = "white", cex = 1.1), cex.main = 1.2)
 			axis(1, cex.axis = 1.1, cex.lab = 1.1)
 			mtext(paste("Heritability Estimates for ", input$probeID, "\n A = ", signif(herit[input$probeID,1],3), "%, C = ",
-			signif(herit[input$probeID,2], 3), "%, E = ", signif(herit[input$probeID,3],3), "%", sep = ""), line = 5, side = 0, at = 50, adj = 1)
+			signif(herit[input$probeID,2], 3), "%, E = ", signif(herit[input$probeID,3],3), "%", sep = ""), line = 5, side = 1)
 			dev.off()
 		}
 	)
